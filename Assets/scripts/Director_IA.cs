@@ -134,6 +134,7 @@ public class Director_IA : MonoBehaviour
 
         if (ACTTimerCrearMob < 0)
         {
+            ACTTimerCrearMob = TimerCrearMob;
             spawns_list[Random.Range(0,spawns_list.Count)].gameObject.GetComponent<spawn>().CrearBastago();
         }
     }
