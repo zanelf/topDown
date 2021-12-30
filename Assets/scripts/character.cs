@@ -12,8 +12,8 @@ public class character : MonoBehaviour
     [SerializeField] private bool can_rotate = true; // si la funcion de rotar esta disponible
     [SerializeField] private Vector3 mov; //vector de movimiento
 
-    [Header("daño y vida")]
-    [SerializeField] private bool dañado; //indica sido dañado recientemente
+    [Header("daï¿½o y vida")]
+    [SerializeField] private bool daniado; //indica sido daï¿½ado recientemente
     public int vidaActual; //cantidad de puntos de vida actual
     [SerializeField] private int vidaMax = 10; //cantidad maxima de puntos de vida que puede tener el jugador 
 
@@ -24,6 +24,14 @@ public class character : MonoBehaviour
     //[Header("TEMPORALES")]
     //public bool cargaMunicion;
 
+    //--------------------------------------------------------------------------
+
+    public float velMovimiento = 10;
+    public Animator animator;
+    public float x, y;
+
+    //--------------------------------------------------------------------------
+
 
     void Start(){
         MotFis = this.GetComponent<Rigidbody>(); //declara el motfis (el motfis resibe su nombre de MOTor de FISicas)
@@ -31,6 +39,18 @@ public class character : MonoBehaviour
     }
 
     void Update(){
+
+        //---------------------------------------------------------------------
+
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
+        transform.Translate(x*Time.deltaTime*velMovimiento,0,0);
+        transform.Translate(0,0,y*Time.deltaTime*velMovimiento);
+        animator.SetFloat("VelX", x);
+        animator.SetFloat("VelY", y);
+        //apuntado();
+        //----------------------------------------------------------------------
+
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) { 
             mov = new Vector3(velocidadMov * Input.GetAxis("Horizontal"), 0, velocidadMov * Input.GetAxis("Vertical"));
         }else{
