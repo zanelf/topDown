@@ -42,21 +42,25 @@ public class character : MonoBehaviour
 
         //---------------------------------------------------------------------
 
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-        transform.Translate(x*Time.deltaTime*velMovimiento,0,0);
-        transform.Translate(0,0,y*Time.deltaTime*velMovimiento);
-        animator.SetFloat("VelX", x);
-        animator.SetFloat("VelY", y);
+        //x = Input.GetAxis("Horizontal");
+        //y = Input.GetAxis("Vertical");
+        //transform.Translate(x*Time.deltaTime*velMovimiento,0,0);
+        //transform.Translate(0,0,y*Time.deltaTime*velMovimiento);
+        //animator.SetFloat("VelX", x);
+        //animator.SetFloat("VelY", y);
         //apuntado();
         //----------------------------------------------------------------------
 
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) { 
             mov = new Vector3(velocidadMov * Input.GetAxis("Horizontal"), 0, velocidadMov * Input.GetAxis("Vertical"));
-        }else{
+
+        } else{
                mov = Vector3.zero;                
         }
         MotFis.AddForce(mov);
+
+        animator.SetFloat("VelX", Input.GetAxis("Horizontal"));
+        animator.SetFloat("VelY", Input.GetAxis("Vertical"));
 
         if (can_rotate){
             apuntado();
@@ -110,7 +114,7 @@ public class character : MonoBehaviour
             {
                 //Debug.Log("\npos0: "+pos0+"\tforward: "+frente);
                 Debug.DrawRay(pos0, frente * 10000, Color.magenta);
-                this.gameObject.GetComponent<Animator>().SetTrigger("disparar");
+                //this.gameObject.GetComponent<Animator>().SetTrigger("disparar");
                 if (HitInfo.transform.tag == "mobs")
                 {
                     HitInfo.transform.GetComponent<gulybad>().interactuar();
