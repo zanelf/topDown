@@ -26,7 +26,7 @@ public class character : MonoBehaviour
 
     //--------------------------------------------------------------------------
 
-    public float velMovimiento = 5;
+    public float velMovimiento = 10;
     public Animator animator;
     public float x, y;
 
@@ -48,7 +48,7 @@ public class character : MonoBehaviour
         transform.Translate(0,0,y*Time.deltaTime*velMovimiento);
         animator.SetFloat("VelX", x);
         animator.SetFloat("VelY", y);
-
+        //apuntado();
         //----------------------------------------------------------------------
 
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) { 
