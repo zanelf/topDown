@@ -20,9 +20,10 @@ public class Director_IA : MonoBehaviour
     [Header("GESTION de los spawn")]
     [Range(5, 25)]
     public int max_spawn; //cantidad maxima de spawns que puede haber 
-    int cant_spawn; //cantidad actual
+    [SerializeField]int cant_spawn; //cantidad actual
     public List<GameObject> spawns_list; //listado para gestionarlos
     public int areaCreacion;
+    public Transform Ubicacion;
 
     private Vector3 area ;
 
@@ -31,6 +32,7 @@ public class Director_IA : MonoBehaviour
     {
         //mobs_list.AddRange(GameObject.FindGameObjectsWithTag("mobs")); //addrange se usa para agregar arreglos a la lista, esto agrega todos los mobs que ya existan 
         cant_enemys = mobs_list.Count;
+        cant_spawn = spawns_list.Count;
         target = objetivo.position;
 
 
@@ -40,14 +42,14 @@ public class Director_IA : MonoBehaviour
     {
         act_target_pos();
         area = new Vector3(areaCreacion,1,areaCreacion);
+
         if (Input.GetButtonDown("Fire3"))
         {
             crear_spawn();
         }
-        {
-
+        if(cant_enemys == 0 && cant_spawn == 0){
+            winState();
         }
-
     }
 
     void act_target_pos(){ //esta funcion actualiza la posicion del jugador en cada paso 
@@ -62,8 +64,10 @@ public class Director_IA : MonoBehaviour
     
     public void crear_mob(Vector3 coor, Transform place){
         GameObject aux = Instantiate(mob, coor, Quaternion.identity,place);
+        //GameObject aux = Instantiate(mob,place);
         aux.gameObject.name = "mob"+(mobs_list.Count + 1);
         aux.gameObject.GetComponent<gulybad>().ID = mobs_list.Count;
+        //aux.transform.GetChild();
         mobs_list.Add(aux);
         cant_enemys++;
     }
@@ -82,6 +86,7 @@ public class Director_IA : MonoBehaviour
         GameObject aux = Instantiate(spawn, pos, Quaternion.identity);
         aux.gameObject.name = "spawn " + (spawns_list.Count);
         aux.gameObject.GetComponent<spawn>().ID = spawns_list.Count;
+        aux.gameObject.GetComponent<spawn>().ubicacion = Ubicacion;
         spawns_list.Add(aux);
         cant_spawn++;
     }
@@ -99,6 +104,11 @@ public class Director_IA : MonoBehaviour
         Debug.Log("muerto");
         aux.gameObject.GetComponent<character>().vidaActual = 10;
         //Destroy(aux);
+    }
+
+    public void winState()
+    {
+        Debug.Log("ganaste");
     }
 
     private void OnDrawGizmos(){

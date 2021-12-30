@@ -30,7 +30,6 @@ public class spawn : MonoBehaviour
         if (Input.GetButtonDown("Fire2")){
             CrearBastago();
         }
-
     }
 
     private void OnDrawGizmos()

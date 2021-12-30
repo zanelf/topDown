@@ -920,9 +920,11 @@ MonoBehaviour:
   mobs_list:
   - {fileID: 1901913306}
   max_spawn: 5
+  cant_spawn: 0
   spawns_list:
   - {fileID: 949701306}
   areaCreacion: 22
+  Ubicacion: {fileID: 1669588112}
 --- !u!1 &1531821209
 GameObject:
   m_ObjectHideFlags: 0
