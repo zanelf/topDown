@@ -22,11 +22,15 @@ public class Director_IA : MonoBehaviour
     public int max_spawn; //cantidad maxima de spawns que puede haber 
     [SerializeField]int cant_spawn; //cantidad actual
     public List<GameObject> spawns_list; //listado para gestionarlos
-    public int areaCreacion;
+    public int areaCreacion; //el area en la que pueden aparecer los spawn 
     public Transform Ubicacion;
-
     private Vector3 area ;
 
+    [Header("tiempo")]
+    public float TimerCrearSpawn = 5;
+    [SerializeField] private float ACTTimerCrearSpawn;
+    public float TimerCrearMob = 1 ;
+    [SerializeField] private float ACTTimerCrearMob;
 
     void Start()
     {
@@ -34,7 +38,8 @@ public class Director_IA : MonoBehaviour
         cant_enemys = mobs_list.Count;
         cant_spawn = spawns_list.Count;
         target = objetivo.position;
-
+        ACTTimerCrearMob = TimerCrearMob;
+        ACTTimerCrearSpawn = TimerCrearSpawn;
 
     }
 
@@ -48,11 +53,13 @@ public class Director_IA : MonoBehaviour
             crear_spawn();
         }
         if(cant_enemys == 0 && cant_spawn == 0){
-            winState();
+            WinState();
         }
+
+
     }
 
-    void act_target_pos(){ //esta funcion actualiza la posicion del jugador en cada paso 
+    private void act_target_pos(){ //esta funcion actualiza la posicion del jugador en cada paso 
         target = objetivo.position;
         for (int i = 0; i < mobs_list.Count; i++){
             if (mobs_list[i])
@@ -106,10 +113,31 @@ public class Director_IA : MonoBehaviour
         //Destroy(aux);
     }
 
-    public void winState()
+    public void WinState()
     {
         Debug.Log("ganaste");
     }
+
+    private void ReduxReloj(){
+        float tima = Time.deltaTime;
+        ACTTimerCrearSpawn -= tima;
+        ACTTimerCrearMob -= tima;
+    }
+
+    private void Gestor()
+    {
+        if (ACTTimerCrearSpawn < 0)
+        {
+            ACTTimerCrearSpawn = TimerCrearSpawn;
+            crear_spawn();
+        }
+
+        if (ACTTimerCrearMob < 0)
+        {
+            spawns_list[Random.Range(0,spawns_list.Count)].gameObject.GetComponent<spawn>().CrearBastago();
+        }
+    }
+
 
     private void OnDrawGizmos(){
 

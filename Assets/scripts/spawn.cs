@@ -38,7 +38,7 @@ public class spawn : MonoBehaviour
         Gizmos.DrawWireSphere(centro, area_de_creacion);
     }
 
-    void CrearBastago(){
+    public void CrearBastago(){
 
         Vector3 pos = centro + new Vector3(Random.Range(-(area_de_creacion/2),(area_de_creacion / 2)),2, Random.Range(-(area_de_creacion / 2), (area_de_creacion / 2)));
         GameObject.FindGameObjectWithTag("hivequeen").transform.GetComponent<Director_IA>().crear_mob(pos,ubicacion);
