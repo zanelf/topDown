@@ -21,7 +21,7 @@ public class spawn : MonoBehaviour
 
         for (int i = 0; i < GameObject.FindGameObjectWithTag("hivequeen").gameObject.GetComponent<Director_IA>().max_enemy; i++)
         {
-            CrearBastago();
+            //CrearBastago();
         }
     }
 

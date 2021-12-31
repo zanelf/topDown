@@ -28,7 +28,7 @@ public class character : MonoBehaviour
 
     public float velMovimiento = 10;
     public Animator animator;
-    public float x, y;
+    private float x, y;
 
     //--------------------------------------------------------------------------
 
@@ -51,7 +51,9 @@ public class character : MonoBehaviour
         //apuntado();
         //----------------------------------------------------------------------
 
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) { 
+        //este bloque se encarga de gestionar el movimiento del jugador 
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) {
+
             mov = new Vector3(velocidadMov * Input.GetAxis("Horizontal"), 0, velocidadMov * Input.GetAxis("Vertical"));
 
         } else{

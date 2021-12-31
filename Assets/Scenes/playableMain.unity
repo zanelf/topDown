@@ -937,7 +937,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  velocidadMov: 0.25
+  velocidadMov: 100
   velocidadRot: 10
   can_rotate: 1
   mov: {x: 0, y: 0, z: 0}
@@ -947,8 +947,6 @@ MonoBehaviour:
   camara: {fileID: 963194227}
   velMovimiento: 10
   animator: {fileID: 1238126569}
-  x: 0
-  y: 0
 --- !u!54 &1238126572
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1036,7 +1034,8 @@ MonoBehaviour:
   spawns_list:
   - {fileID: 949701306}
   areaCreacion: 22
-  Ubicacion: {fileID: 1669588112}
+  UbicacionM: {fileID: 0}
+  UbicacionS: {fileID: 0}
   TimerCrearSpawn: 5
   ACTTimerCrearSpawn: 0
   TimerCrearMob: 1

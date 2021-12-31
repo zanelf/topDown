@@ -23,7 +23,8 @@ public class Director_IA : MonoBehaviour
     [SerializeField]int cant_spawn; //cantidad actual
     public List<GameObject> spawns_list; //listado para gestionarlos
     public int areaCreacion; //el area en la que pueden aparecer los spawn 
-    public Transform Ubicacion;
+    public Transform UbicacionM;
+    public Transform UbicacionS;
     private Vector3 area ;
 
     [Header("tiempo")]
@@ -46,7 +47,10 @@ public class Director_IA : MonoBehaviour
     void Update()
     {
         act_target_pos();
+
         area = new Vector3(areaCreacion,1,areaCreacion);
+
+        Gestor();
 
         if (Input.GetButtonDown("Fire3"))
         {
@@ -90,10 +94,10 @@ public class Director_IA : MonoBehaviour
     private void crear_spawn()
     {
         Vector3 pos = transform.position + new Vector3(Random.Range(-(areaCreacion / 2), (areaCreacion / 2)), 0, Random.Range(-(areaCreacion / 2), (areaCreacion / 2)));
-        GameObject aux = Instantiate(spawn, pos, Quaternion.identity);
+        GameObject aux = Instantiate(spawn, pos, Quaternion.identity,UbicacionS);
         aux.gameObject.name = "spawn " + (spawns_list.Count);
         aux.gameObject.GetComponent<spawn>().ID = spawns_list.Count;
-        aux.gameObject.GetComponent<spawn>().ubicacion = Ubicacion;
+        aux.gameObject.GetComponent<spawn>().ubicacion = UbicacionM;
         spawns_list.Add(aux);
         cant_spawn++;
     }
@@ -126,6 +130,7 @@ public class Director_IA : MonoBehaviour
 
     private void Gestor()
     {
+        ReduxReloj();
         if (ACTTimerCrearSpawn < 0)
         {
             ACTTimerCrearSpawn = TimerCrearSpawn;
@@ -135,7 +140,12 @@ public class Director_IA : MonoBehaviour
         if (ACTTimerCrearMob < 0)
         {
             ACTTimerCrearMob = TimerCrearMob;
-            spawns_list[Random.Range(0,spawns_list.Count)].gameObject.GetComponent<spawn>().CrearBastago();
+            int aux = Random.Range(0, spawns_list.Count);
+            if (spawns_list[aux].transform.tag == "spawn")
+            {
+                spawns_list[aux].gameObject.GetComponent<spawn>().CrearBastago();
+            }
+               
         }
     }
 
