@@ -937,7 +937,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  velocidadMov: 100
+  velocidadMov: 300
   velocidadRot: 10
   can_rotate: 1
   mov: {x: 0, y: 0, z: 0}
@@ -1025,17 +1025,17 @@ MonoBehaviour:
   spawn: {fileID: 3649018869511047521, guid: e54c4ab4d7bf44c4bb8f4706559ea328, type: 3}
   mob: {fileID: 7710251341215159966, guid: 717c4b45a16c28b44854ca5549a9e178, type: 3}
   vacio: {fileID: 0}
-  max_enemy: 9
+  max_enemy: 44
   cant_enemys: 0
   mobs_list:
   - {fileID: 1901913306}
-  max_spawn: 5
+  max_spawn: 10
   cant_spawn: 0
   spawns_list:
   - {fileID: 949701306}
   areaCreacion: 22
-  UbicacionM: {fileID: 0}
-  UbicacionS: {fileID: 0}
+  UbicacionM: {fileID: 1669588112}
+  UbicacionS: {fileID: 192176050}
   TimerCrearSpawn: 5
   ACTTimerCrearSpawn: 0
   TimerCrearMob: 1

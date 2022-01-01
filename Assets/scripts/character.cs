@@ -7,10 +7,11 @@ public class character : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("movimiento y rotacion:")]
-    [Range(100f,1000f)] public float velocidadMov = 0.25f; //la velocidad a la que se desplaza
+    [Range(100f, 1000f)] public float velocidadMov = 0.25f; //la velocidad a la que se desplaza
     [Range(0f, 10f)] public float velocidadRot = 10; //que tan sensible es la rotacion (posiblemente es temporal)
     [SerializeField] private bool can_rotate = true; // si la funcion de rotar esta disponible
     [SerializeField] private Vector3 mov; //vector de movimiento
+    private float x, y;
 
     [Header("da�o y vida")]
     [SerializeField] private bool daniado; //indica sido da�ado recientemente
@@ -20,18 +21,13 @@ public class character : MonoBehaviour
     [Header("componentes y accesos directos")]
     public Camera camara;
     Rigidbody MotFis; //esto se usa para acceder al rigidbody del cuerpo
-
-    //[Header("TEMPORALES")]
-    //public bool cargaMunicion;
-
-    //--------------------------------------------------------------------------
-
-    public float velMovimiento = 10;
     public Animator animator;
-    private float x, y;
 
     //--------------------------------------------------------------------------
-
+    [Header("timers")]
+    [SerializeField] private float MaxTime = 0.3f;
+    [SerializeField] private float AcTTime = 0f;
+    [SerializeField] private bool bala = true;
 
     void Start(){
         MotFis = this.GetComponent<Rigidbody>(); //declara el motfis (el motfis resibe su nombre de MOTor de FISicas)
@@ -107,25 +103,40 @@ public class character : MonoBehaviour
 
     private void disparar()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Vector3 pos0 = transform.position;
-            Vector3 frente = transform.forward;
-
-            if (Physics.Raycast(pos0, frente, out var HitInfo))
+        if (Input.GetButton("Fire1")){
+            AcTTime += Time.deltaTime;
+            if (AcTTime > MaxTime)
             {
-                //Debug.Log("\npos0: "+pos0+"\tforward: "+frente);
-                Debug.DrawRay(pos0, frente * 10000, Color.magenta);
-                //this.gameObject.GetComponent<Animator>().SetTrigger("disparar");
-                if (HitInfo.transform.tag == "mobs")
+                bala = true;
+                AcTTime = 0;
+            }
+            if (bala)
+            {
+                bala = false;
+                //Vector3 pos0 = transform.position;
+                Vector3 frente = transform.forward;
+                Vector3 pos0 = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                // Vector3 frente = transform.forward;
+                if (Physics.Raycast(pos0, frente, out var HitInfo))
                 {
-                    HitInfo.transform.GetComponent<gulybad>().interactuar();
-                }
-                if (HitInfo.transform.tag == "spawns"){
-                    
-                    HitInfo.transform.GetComponent<spawn>().interactuar();
+                    //Debug.Log("\npos0: "+pos0+"\tforward: "+frente);
+                    Debug.DrawRay(pos0, frente * 10000, Color.magenta);
+                    //this.gameObject.GetComponent<Animator>().SetTrigger("disparar");
+                    if (HitInfo.transform.tag == "mobs")
+                    {
+                        HitInfo.transform.GetComponent<gulybad>().interactuar();
+                    }
+                    if (HitInfo.transform.tag == "spawns")
+                    {
+
+                        HitInfo.transform.GetComponent<spawn>().interactuar();
+                    }
                 }
             }
+        }
+        else
+        {
+            AcTTime = 0;
         }
     }
 

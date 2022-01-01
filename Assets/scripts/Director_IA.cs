@@ -131,19 +131,26 @@ public class Director_IA : MonoBehaviour
     private void Gestor()
     {
         ReduxReloj();
-        if (ACTTimerCrearSpawn < 0)
+        if (ACTTimerCrearSpawn < 0 )
         {
             ACTTimerCrearSpawn = TimerCrearSpawn;
-            crear_spawn();
+            if (cant_spawn < max_spawn)
+            {
+                crear_spawn();
+            }
         }
 
-        if (ACTTimerCrearMob < 0)
+        if (ACTTimerCrearMob < 0 )
         {
             ACTTimerCrearMob = TimerCrearMob;
-            int aux = Random.Range(0, spawns_list.Count);
-            if (spawns_list[aux].transform.tag == "spawn")
+
+            if (cant_enemys < max_enemy)
             {
-                spawns_list[aux].gameObject.GetComponent<spawn>().CrearBastago();
+                int aux = Random.Range(0, spawns_list.Count);
+                if (spawns_list[aux] != null)
+                {
+                    spawns_list[aux].gameObject.GetComponent<spawn>().CrearBastago();
+                }
             }
                
         }

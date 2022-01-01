@@ -48,7 +48,7 @@ MonoBehaviour:
   area_de_creacion: 10
   ubicacion: {fileID: 0}
   ID: 0
-  vidaMax: 10
+  vidaMax: 5
   vidaActual: 0
 --- !u!136 &7546723135071289856
 CapsuleCollider:
