@@ -33,6 +33,8 @@ public class Director_IA : MonoBehaviour
     public float TimerCrearMob = 1 ;
     [SerializeField] private float ACTTimerCrearMob;
 
+    public bool gameMode = true; 
+
     void Start()
     {
         //mobs_list.AddRange(GameObject.FindGameObjectsWithTag("mobs")); //addrange se usa para agregar arreglos a la lista, esto agrega todos los mobs que ya existan 
@@ -50,7 +52,8 @@ public class Director_IA : MonoBehaviour
 
         area = new Vector3(areaCreacion,1,areaCreacion);
 
-        Gestor();
+        if (gameMode)
+            Gestor();
 
         if (Input.GetButtonDown("Fire3"))
         {
@@ -66,7 +69,7 @@ public class Director_IA : MonoBehaviour
     private void act_target_pos(){ //esta funcion actualiza la posicion del jugador en cada paso 
         target = objetivo.position;
         for (int i = 0; i < mobs_list.Count; i++){
-            if (mobs_list[i])
+            if (mobs_list[i] != null)
             {
                 mobs_list[i].gameObject.GetComponent<gulybad>().Set_target(objetivo.position);
             }
